@@ -7,7 +7,10 @@ const investmentRoutes = require("./routes/investments");
 const cron = require("node-cron");
 const { getStockPrice, getCryptoPrice, getGoldPrice } = require("./services/marketData");
 const portfolioRoutes = require("./routes/portfolio");
+const dashboardRoutes = require("./routes/dashboard");
+const tickerRoutes = require("./routes/ticker");
 const app = express();
+const seedRoute = require("./routes/seed");
 require("./jobs/portfolioMonitor");
 
 // Connect to MongoDB
@@ -16,14 +19,19 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public')); // Serve static files from public directory
 
 // Routes
 app.use("/auth", authRoutes);
 app.use("/investments", investmentRoutes);
 app.use("/portfolio", portfolioRoutes);
+app.use("/api/seed", seedRoute);
+app.use("/api/portfolio", portfolioRoutes);
+app.use("/api/ticker", tickerRoutes);
+app.use("/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Investment Tracker API is running!");
+  res.redirect('/dashboard');
 });
 
 // Start Server
