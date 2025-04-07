@@ -13,6 +13,13 @@ const InvestmentSchema = new mongoose.Schema({
   currentValue: { type: Number, required: false }, // auto-updated
   purchaseDate: { type: Date, required: true },
   lastUpdated: { type: Date, default: Date.now },
+  tickerSymbol: {
+    type: String,
+    required: function () {
+      return this.assetType === 'stock' || this.assetType === 'mutual_fund';
+    }
+  }
 });
+
 
 module.exports = mongoose.model("Investment", InvestmentSchema);
