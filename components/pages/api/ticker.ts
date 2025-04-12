@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { fetchStockPrice } from "@/lib/tickers/stocks";
-import { fetchMutualFundPrice } from "@/lib/tickers/mutualFunds";
-import { fetchCryptoPrice } from "@/lib/tickers/crypto";
+import { fetchStockPrice } from "../../../lib/tickers/stocks";
+import { fetchMutualFundPrice } from "../../../lib/tickers/mutualFunds";
+import { fetchCryptoPrice } from "../../../lib/tickers/crypto";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { type, ticker } = req.query;

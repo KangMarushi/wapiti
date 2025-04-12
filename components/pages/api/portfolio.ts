@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "@/lib/mongodb"; // you already set this up
+import { connectToDatabase } from "../../../lib/mongodb"; // you already set this up
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { db } = await connectToDatabase();

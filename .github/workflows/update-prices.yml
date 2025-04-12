@@ -1,0 +1,19 @@
+name: Daily Price Updates
+
+on:
+  schedule:
+    # Run at 00:00 UTC every day
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger price update endpoint
+        run: |
+          curl -X POST ${{ secrets.APP_URL }}/api/cron/update-prices \
+          -H "Content-Type: application/json" \
+          -H "x-cron-secret: ${{ secrets.CRON_SECRET }}" \
+          --fail 
