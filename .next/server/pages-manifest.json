@@ -1,0 +1,18 @@
+{
+  "/api/alerts": "pages/api/alerts.js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js",
+  "/api/batch-update": "pages/api/batch-update.js",
+  "/api/cron/update-prices": "pages/api/cron/update-prices.js",
+  "/api/investments/[id]": "pages/api/investments/[id].js",
+  "/api/investments": "pages/api/investments.js",
+  "/api/portfolio": "pages/api/portfolio.js",
+  "/api/portfolio/analysis": "pages/api/portfolio/analysis.js",
+  "/api/update-price": "pages/api/update-price.js",
+  "/auth/signin": "pages/auth/signin.html",
+  "/dashboard": "pages/dashboard.html",
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/api/parse-statement": "pages/api/parse-statement.js",
+  "/404": "pages/404.html"
+}

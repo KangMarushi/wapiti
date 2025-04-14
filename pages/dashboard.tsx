@@ -393,7 +393,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Add PortfolioInsights component after the existing charts */}
-        <Grid item xs={12}>
+        <Grid>
           <PortfolioInsights />
         </Grid>
 

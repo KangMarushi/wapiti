@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../../lib/mongodb';
 import { Investment } from '../../../types/types';
+import { connectToDatabase } from '../../../lib/mongodb';
 
 interface PortfolioAnalysis {
   totalValue: number;
@@ -36,8 +36,8 @@ export default async function handler(
   }
 
   try {
-    const client = await clientPromise;
-    const db = client.db();
+    const { db, client } = await connectToDatabase();
+
     const investments = await db.collection<Investment>('investments').find({}).toArray();
 
     // Calculate basic portfolio metrics
@@ -135,6 +135,7 @@ export default async function handler(
     return res.status(200).json(analysis);
   } catch (error) {
     console.error('Error analyzing portfolio:', error);
+    
     return res.status(500).json({ message: 'Failed to analyze portfolio' });
   }
-} 
+}

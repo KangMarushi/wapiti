@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { Investment } from '../../../types/types';
 
 // In production, this would interact with your database
-let mockInvestments = [
+let mockInvestments: Omit<Investment, 'profitLoss' | 'profitLossPercentage'>[] = [
   {
     _id: '1',
     name: 'Apple Inc.',
@@ -13,8 +13,6 @@ let mockInvestments = [
     totalCost: 1000,
     currentPrice: 120,
     currentValue: 1200,
-    profitLoss: 200,
-    profitLossPercentage: 20,
     date: new Date('2024-01-01'),
     lastUpdated: new Date()
   }
@@ -36,8 +34,14 @@ export default async function handler(
         currentPrice: investment.costBasis,  // Initially set to cost basis
         currentValue: investment.amount * investment.costBasis,
         profitLoss: 0,  // Initially no profit/loss
-        profitLossPercentage: 0
+        profitLossPercentage: 0,
+        date: new Date(),
+        lastUpdated: new Date()
       };
+
+        if (!newInvestment.ticker) {
+            newInvestment.ticker = 'DEFAULT'; 
+        }
 
       // Add to mock database
       mockInvestments.push(newInvestment);
@@ -60,4 +64,4 @@ export default async function handler(
   }
 
   return res.status(405).json({ message: 'Method not allowed' });
-} 
+}

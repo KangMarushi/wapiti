@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../../lib/mongodb';
+import { connectToDatabase } from '../../../lib/mongodb';
 import { Investment } from '../../../types/types';
 import { ObjectId } from 'mongodb';
 
@@ -21,8 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const client = await clientPromise;
-    const db = client.db();
+    const { db, client } = await connectToDatabase();
     const investments = await db.collection<Investment>('investments').find({}).toArray();
 
     // Update each investment's price
@@ -74,4 +73,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.error('Error updating prices:', error);
     return res.status(500).json({ message: 'Failed to update prices' });
   }
-} 
+}

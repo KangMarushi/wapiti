@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import formidable from 'formidable';
 import fs from 'fs';
-import csv from 'csv-parse';
+import { parse } from 'csv-parse';
 import xlsx from 'xlsx';
 import pdf from 'pdf-parse';
 
@@ -47,7 +47,7 @@ async function parseCSV(filePath: string): Promise<Transaction[]> {
   
   return new Promise((resolve, reject) => {
     fs.createReadStream(filePath)
-      .pipe(csv())
+      .pipe(parse())
       .on('data', (row) => {
         // Adjust these indices based on your CSV format
         transactions.push({
@@ -129,4 +129,4 @@ export default async function handler(
     console.error('Statement parsing error:', error);
     return res.status(500).json({ error: 'Failed to parse statement' });
   }
-} 
+}
